@@ -1,17 +1,49 @@
-export class ProductsModel {
-	_id: string;
+import { prop } from '@typegoose/typegoose';
+import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+
+class ProductCharasteristic {
+	@prop()
+	name: string;
+
+	@prop()
+	value: string;
+}
+
+export interface ProductsModel extends Base {}
+export class ProductsModel extends TimeStamps {
+	@prop()
 	image: string;
+
+	@prop()
 	title: string;
+
+	@prop()
 	price: number;
+
+	@prop()
 	oldPrice: number;
+
+	@prop()
 	credit: number;
+
+	@prop()
 	calculatedRating: number;
+
+	@prop()
 	description: string;
+
+	@prop()
 	advantages: string;
+
+	@prop()
 	disadvantages: string;
+
+	@prop({ type: () => [String] })
 	categories: string[];
+
+	@prop({ type: () => [String] })
 	tags: string[];
-	characteristics: {
-		[key: string]: string;
-	};
+
+	@prop({ type: () => [ProductCharasteristic], _id: false })
+	characteristics: ProductCharasteristic[];
 }
