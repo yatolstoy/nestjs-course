@@ -5,6 +5,7 @@ import { AppModule } from '../src/app.module';
 import { CreateReviewDto } from '../src/reviews/dto/create.review.dto';
 import { Types, disconnect } from 'mongoose';
 import { REVIEW_NOT_FOUND } from '../src/reviews/review.constants';
+import { send } from 'process';
 
 const productId = new Types.ObjectId().toHexString();
 
@@ -16,9 +17,15 @@ const testDto: CreateReviewDto = {
 	productId,
 };
 
+const loginDto = {
+	login: 'a2a@a.ru',
+	password: '123',
+};
+
 describe('AppController (e2e)', () => {
 	let app: INestApplication;
 	let createdId: string;
+	let token: string;
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -27,6 +34,12 @@ describe('AppController (e2e)', () => {
 
 		app = moduleFixture.createNestApplication();
 		await app.init();
+
+		const res = await request(app.getHttpServer())
+			.post('/auth/login')
+			.send(loginDto);
+
+		token = res.body.access_token;
 	});
 
 	it('/reviews/create (POST) - success', async () => {
@@ -68,12 +81,14 @@ describe('AppController (e2e)', () => {
 	it('/reviews/:id (DELETE) - success', async () => {
 		await request(app.getHttpServer())
 			.delete('/reviews/' + createdId)
+			.set('Authorization', 'Bearer ' + token)
 			.expect(200);
 	});
 
 	it('/reviews/:id (DELETE) - unsuccess', async () => {
 		await request(app.getHttpServer())
 			.delete('/reviews/' + new Types.ObjectId().toHexString())
+			.set('Authorization', 'Bearer ' + token)
 			.expect(404, {
 				statusCode: 404,
 				message: REVIEW_NOT_FOUND,
