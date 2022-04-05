@@ -39,6 +39,14 @@ describe('AppController (e2e)', () => {
 		expect(createdId).toBeDefined();
 	});
 
+	it('/reviews/create (POST) - check validation', async () => {
+		const result = await request(app.getHttpServer())
+			.post('/reviews/create')
+			.send({ ...testDto, rating: 0 });
+
+		expect(result.statusCode).toBe(400);
+	});
+
 	it('/reviews/byProduct/:productId (GET) - success', async () => {
 		const result = await request(app.getHttpServer()).get(
 			'/reviews/byProduct/' + productId,
