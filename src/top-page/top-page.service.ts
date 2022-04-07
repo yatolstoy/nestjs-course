@@ -27,12 +27,22 @@ export class TopPageService {
 
 	async findByCategory(firstCategory: TopLevelCategory) {
 		return this.topPageModel
-			.find(
-				{
-					firstLevelCategory: firstCategory,
+			.aggregate()
+			.match({
+				firstLevelCategory: firstCategory,
+			})
+			.group({
+				_id: { secondLevelCategory: '$secondLevelCategory' },
+				pages: {
+					$push: { alias: '$alias', title: '$title' },
 				},
-				{ alias: 1, secondCategory: 1, title: 1 },
-			)
+			})
+			.exec();
+	}
+
+	async findByText(text: string) {
+		return this.topPageModel
+			.find({ $text: { $search: text, $caseSensitive: false } })
 			.exec();
 	}
 
@@ -42,11 +52,5 @@ export class TopPageService {
 
 	async updateById(id: string, dto: CreateTopPageDto) {
 		return this.topPageModel.findByIdAndUpdate(id, dto, { new: true }).exec();
-	}
-
-	async findByText(text: string) {
-		return this.topPageModel
-			.find({ $text: { $search: text, $caseSensitive: false } })
-			.exec();
 	}
 }
