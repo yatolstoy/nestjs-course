@@ -35,7 +35,7 @@ export class TopPageModel extends TimeStamps {
 	@prop()
 	secondLevelCategory: string;
 
-	@prop()
+	@prop({ unique: true })
 	alias: string;
 
 	@prop()
