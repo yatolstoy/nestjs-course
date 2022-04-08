@@ -16,4 +16,3 @@ jobs:
           name: yatolstoy/nestjs-course/nest-course/
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: "develop"
