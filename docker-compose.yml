@@ -12,6 +12,8 @@ services:
     volumes:
       - ./mongo-data-4.4:/data/db
     command: --wiredTigerCacheSizeGB 1.5
+    networks: 
+      - "top-api-network"
 
   top-api:
     image: top-api:latest
@@ -21,4 +23,6 @@ services:
       - 3000:3000
     volumes:
       - ./.env:/opt/app/.env
+    networks: 
+      - "top-api-network"
 
