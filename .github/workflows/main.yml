@@ -13,6 +13,6 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           registry: docker.pkg.github.com
-          name: docker.pkg.github.com/yatolstoy/nestjs-course/nest-course
-          username: ${{ secrets.DOCKER_USERNAME }}
+          name: yatolstoy/nestjs-course/nest-course
+          username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
