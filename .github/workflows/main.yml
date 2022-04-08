@@ -12,7 +12,7 @@ jobs:
       - name: Publish to registy
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          registry: ghcr.io
-          name: ghcr.io/yatolstoy/nestjs-course/nest-course
+          registry: docker.pkg.github.com
+          name: docker.pkg.github.com/yatolstoy/nestjs-course/nest-course
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
