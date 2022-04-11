@@ -8,6 +8,7 @@ import { getMongoConfig } from './configs/mongo.config';
 import { ProductsModule } from './products/products.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { TopPageModule } from './top-page/top-page.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
 	imports: [
@@ -21,6 +22,7 @@ import { TopPageModule } from './top-page/top-page.module';
 		ProductsModule,
 		ReviewsModule,
 		TopPageModule,
+		FilesModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
