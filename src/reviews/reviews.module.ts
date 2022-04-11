@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
+import { TelegramModule } from 'src/telegram/telegram.module';
 import { ReviewsController } from './reviews.controller';
 import { ReviewsModel } from './reviews.model';
 import { ReviewsService } from './reviews.service';
@@ -15,6 +16,7 @@ import { ReviewsService } from './reviews.service';
 				},
 			},
 		]),
+		TelegramModule,
 	],
 	providers: [ReviewsService],
 })
