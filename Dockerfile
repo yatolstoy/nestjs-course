@@ -1,7 +1,7 @@
 FROM node:16.13.2-alpine
 WORKDIR /opt/app
-RUN apt update
-RUN apt install libvips-dev
+RUN sudo apt-get update -y
+RUN sudo apt-get install -y libvips
 RUN npm update -g
 RUN npm config set legacy-peer-deps true
 ADD package.json package.json
