@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:latest
 WORKDIR /opt/app
 RUN npm update -g
 RUN npm config set legacy-peer-deps true
